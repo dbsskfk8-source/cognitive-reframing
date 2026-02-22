@@ -148,9 +148,14 @@ def control_attribute(data: ControlInput):
 # 서버 실행 (개발용)
 if __name__ == "__main__":
     import uvicorn
+    import os
+    
+    port = int(os.environ.get("PORT", 8000))
+    
     print("\n" + "="*50)
     print("🌐 FastAPI 서버 시작")
-    print("📍 URL: http://localhost:8000")
-    print("📚 API 문서: http://localhost:8000/docs")
+    print(f"📍 PORT: {port}")
+    print("📚 API 문서: /docs")
     print("="*50 + "\n")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    
+    uvicorn.run(app, host="0.0.0.0", port=port)
