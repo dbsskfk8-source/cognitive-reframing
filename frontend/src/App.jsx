@@ -14,9 +14,7 @@ function App() {
 
 
 
-  const API_BASE = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/api` 
-  : 'http://localhost:8000/api';
+  const API_BASE = '/api';
 
   const handleInputNext = () => {
     if (!thought.trim()) {
@@ -48,24 +46,24 @@ function App() {
     }
   };
 
-const generateReframe = async () => {
-  setLoading(true);
-  try {
-    const response = await axios.post(`${API_BASE}/reframe`, {
-      thought,
-      situation
-    });
-    
-    setReframes(response.data.reframes);  // 3개 저장
-    setSimilarCases(response.data.similar_cases || []);
-    setStep(4);
-  } catch (err) {
-    setError('재구성 생성 중 오류: ' + err.message);
-  } finally {
-    setLoading(false);
-  }
-};
- 
+  const generateReframe = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_BASE}/reframe`, {
+        thought,
+        situation
+      });
+
+      setReframes(response.data.reframes);  // 3개 저장
+      setSimilarCases(response.data.similar_cases || []);
+      setStep(4);
+    } catch (err) {
+      setError('재구성 생성 중 오류: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const reset = () => {
     setStep(1);
     setThought('');
@@ -76,31 +74,31 @@ const generateReframe = async () => {
     setError('');
   };
 
-const handleControl = async (attribute) => {
-  setLoading(true);
-  try {
-    const response = await axios.post(`${API_BASE}/control`, {
-      reframe: selectedReframe,
-      attribute,
-      thought,
-      situation
-    });
-    
-    setSelectedReframe(response.data.controlled_reframe);
-    
-    // reframes 배열도 업데이트
-    const newReframes = [...reframes];
-    const idx = newReframes.indexOf(selectedReframe);
-    if (idx !== -1) {
-      newReframes[idx] = response.data.controlled_reframe;
-      setReframes(newReframes);
+  const handleControl = async (attribute) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_BASE}/control`, {
+        reframe: selectedReframe,
+        attribute,
+        thought,
+        situation
+      });
+
+      setSelectedReframe(response.data.controlled_reframe);
+
+      // reframes 배열도 업데이트
+      const newReframes = [...reframes];
+      const idx = newReframes.indexOf(selectedReframe);
+      if (idx !== -1) {
+        newReframes[idx] = response.data.controlled_reframe;
+        setReframes(newReframes);
+      }
+    } catch (err) {
+      setError('속성 제어 중 오류: ' + err.message);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    setError('속성 제어 중 오류: ' + err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div style={{
@@ -109,10 +107,10 @@ const handleControl = async (attribute) => {
       padding: '20px',
       fontFamily: 'Arial, sans-serif'
     }}>
-      <h1 style={{textAlign: 'center', color: '#2563eb'}}>
+      <h1 style={{ textAlign: 'center', color: '#2563eb' }}>
         🧠 인지 재구성 도구
       </h1>
-      <p style={{textAlign: 'center', color: '#666', marginBottom: '30px'}}>
+      <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
         부정적인 생각을 건강한 관점으로 바꿔보세요
       </p>
 
@@ -132,8 +130,8 @@ const handleControl = async (attribute) => {
       {step === 1 && (
         <div>
           <h2>1️⃣ 어떤 생각 때문에 힘드신가요?</h2>
-          
-          <label style={{display: 'block', marginTop: '20px', fontWeight: 'bold'}}>
+
+          <label style={{ display: 'block', marginTop: '20px', fontWeight: 'bold' }}>
             부정적인 생각:
           </label>
           <textarea
@@ -151,7 +149,7 @@ const handleControl = async (attribute) => {
             }}
           />
 
-          <label style={{display: 'block', marginTop: '20px', fontWeight: 'bold'}}>
+          <label style={{ display: 'block', marginTop: '20px', fontWeight: 'bold' }}>
             어떤 상황이었나요?
           </label>
           <textarea
@@ -189,17 +187,17 @@ const handleControl = async (attribute) => {
       )}
 
       {step === 2 && (
-        <div style={{textAlign: 'center', padding: '40px'}}>
-          <div style={{fontSize: '48px', marginBottom: '20px'}}>🔍</div>
+        <div style={{ textAlign: 'center', padding: '40px' }}>
+          <div style={{ fontSize: '48px', marginBottom: '20px' }}>🔍</div>
           <h2>사고함정 분석 중...</h2>
-          <p style={{color: '#666'}}>AI가 당신의 생각 패턴을 분석하고 있습니다</p>
+          <p style={{ color: '#666' }}>AI가 당신의 생각 패턴을 분석하고 있습니다</p>
         </div>
       )}
 
       {step === 3 && (
         <div>
           <h2>2️⃣ 사고함정 분석 결과</h2>
-          
+
           <div style={{
             padding: '20px',
             backgroundColor: '#fef3c7',
@@ -207,8 +205,8 @@ const handleControl = async (attribute) => {
             borderRadius: '8px',
             marginTop: '20px'
           }}>
-            <h3 style={{marginTop: 0}}>감지된 사고함정:</h3>
-            <p style={{fontSize: '20px', fontWeight: 'bold', color: '#d97706'}}>
+            <h3 style={{ marginTop: 0 }}>감지된 사고함정:</h3>
+            <p style={{ fontSize: '20px', fontWeight: 'bold', color: '#d97706' }}>
               {thinkingTrap}
             </p>
           </div>
@@ -243,12 +241,12 @@ const handleControl = async (attribute) => {
         </div>
       )}
 
-    {step === 4 && (
+      {step === 4 && (
         <div>
           <h2>3️⃣ 재구성 제안</h2>
-          <p style={{color: '#666'}}>가장 마음에 드는 재구성을 선택해주세요</p>
+          <p style={{ color: '#666' }}>가장 마음에 드는 재구성을 선택해주세요</p>
 
-          <div style={{marginTop: '20px'}}>
+          <div style={{ marginTop: '20px' }}>
             {reframes.map((reframe, idx) => (
               <div
                 key={idx}
@@ -263,7 +261,7 @@ const handleControl = async (attribute) => {
                   transition: 'all 0.2s'
                 }}
               >
-                <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
                   <span style={{
                     fontSize: '20px',
                     fontWeight: 'bold',
@@ -286,12 +284,12 @@ const handleControl = async (attribute) => {
           </div>
 
           {selectedReframe && (
-            <div style={{marginTop: '30px'}}>
+            <div style={{ marginTop: '30px' }}>
               <h3>🎛️ 선택한 재구성 조절하기</h3>
-              <p style={{color: '#666', fontSize: '14px', marginBottom: '15px'}}>
+              <p style={{ color: '#666', fontSize: '14px', marginBottom: '15px' }}>
                 속성을 조절하여 더 나은 재구성을 만들어보세요
               </p>
-              
+
               <div style={{
                 display: 'flex',
                 gap: '10px',
@@ -311,7 +309,7 @@ const handleControl = async (attribute) => {
                 >
                   💜 더 공감적으로
                 </button>
-                
+
                 <button
                   onClick={() => handleControl('actionability')}
                   disabled={loading}
@@ -326,7 +324,7 @@ const handleControl = async (attribute) => {
                 >
                   ⚡ 더 실행 가능하게
                 </button>
-                
+
                 <button
                   onClick={() => handleControl('specificity')}
                   disabled={loading}
@@ -345,7 +343,7 @@ const handleControl = async (attribute) => {
             </div>
           )}
 
-          <div style={{marginTop: '30px', textAlign: 'center'}}>
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
             <button
               onClick={reset}
               style={{
@@ -362,7 +360,7 @@ const handleControl = async (attribute) => {
             </button>
           </div>
         </div>
-      )}       
+      )}
 
     </div>
   );
