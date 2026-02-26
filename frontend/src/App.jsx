@@ -40,7 +40,8 @@ function App() {
       setThinkingTrap(response.data.thinking_trap);
       setStep(3);
     } catch (err) {
-      setError('분류 중 오류가 발생했습니다: ' + err.message);
+      const msg = err.response?.data?.message || err.message;
+      setError('분류 중 오류가 발생했습니다: ' + msg);
     } finally {
       setLoading(false);
     }

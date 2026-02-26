@@ -49,6 +49,9 @@ Cognitive Distortion:`;
         return res.status(200).json({ thinking_trap: result });
     } catch (error) {
         console.error('API Error:', error);
-        return res.status(500).json({ message: 'Internal Server Error' });
+        return res.status(500).json({
+            message: error.message || 'Internal Server Error',
+            details: 'Check if OPENAI_API_KEY is properly set in Vercel settings.'
+        });
     }
 }
