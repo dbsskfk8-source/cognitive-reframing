@@ -66,7 +66,7 @@ export default async function handler(req, res) {
                     { role: "system", content: "You are a cognitive therapist helping people reframe negative thoughts." },
                     { role: "user", content: prompt + testInput }
                 ],
-                max_tokens: 256,
+                max_tokens: 512,
                 top_p: 0.6,
                 frequency_penalty: 0.0,
                 presence_penalty: 0.0

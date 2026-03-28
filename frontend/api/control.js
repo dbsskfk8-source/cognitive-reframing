@@ -38,7 +38,7 @@ More specific response:`;
                 { role: "system", content: "You are a helpful cognitive behavioral therapist." },
                 { role: "user", content: prompt }
             ],
-            max_tokens: 150,
+            max_tokens: 512,
             temperature: 0.7
         });
 
