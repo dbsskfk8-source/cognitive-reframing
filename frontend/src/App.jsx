@@ -272,14 +272,20 @@ function App() {
                     {selectedReframe === reframe ? '✅' : `${idx + 1}.`}
                   </span>
                 </div>
-                <p style={{
-                  fontSize: '16px',
-                  lineHeight: '1.6',
-                  color: '#374151',
-                  margin: 0
+                <div style={{
+                  maxHeight: '200px',
+                  overflowY: 'auto',
+                  paddingRight: '8px'
                 }}>
-                  {reframe}
-                </p>
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: '1.6',
+                    color: '#374151',
+                    margin: 0
+                  }}>
+                    {reframe}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
