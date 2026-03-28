@@ -273,9 +273,13 @@ function App() {
                   </span>
                 </div>
                 <div style={{
-                  maxHeight: '200px',
+                  maxHeight: '150px',
                   overflowY: 'auto',
-                  paddingRight: '8px'
+                  padding: '12px',
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  border: '1px solid #e5e7eb',
+                  wordBreak: 'break-word'
                 }}>
                   <p style={{
                     fontSize: '16px',
